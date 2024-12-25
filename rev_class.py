@@ -1,7 +1,8 @@
 import numpy as np
 
 lst = [np.pi, 20, 30, 40, 50]
-
+print(len(lst))
+print(lst[0])
 vec = np.array(lst)
 
 print(vec)
