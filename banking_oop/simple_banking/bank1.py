@@ -1,3 +1,16 @@
+from datetime import date
+
+
+class Transaction:
+    def __init__(self, transaction_amount, transaction_type):
+        self.transaction_amount = transaction_amount
+        self.transaction_type = transaction_type
+        self.transaction_date = date.today()
+
+    def __str__(self):
+        return f'{self.transaction_date} - {self.transaction_type} - ${self.transaction_amount}'
+
+
 class BankAccount:
     """
     Parent class with attributes and methods for
@@ -5,21 +18,19 @@ class BankAccount:
     """
     account_number = 1000
 
-    def __init__(self, title, type, balance):
+    def __init__(self, title, balance):
         self.title = title
-        self.type = type
         self.balance = balance
         self.is_dormant = False
         self.account_number = BankAccount.account_number
         BankAccount.account_number += 1
-
-    def __str__(self):
-        return f"Account Number: {self.account_number}\nAccount Title: {self.title}\nAccount Type: {self.type}\nBalance: ${self.balance}"
+        self.transactions = []
 
     def deposit(self, amount):
         if not self.is_dormant and amount > 0:
             self.balance += amount
             print(f'${amount} deposited. New Balance: ${self.balance}')
+            self.transactions.append(Transaction(amount, "Credit"))
         else:
             print("Account is dormant or amount is invalid")
 
@@ -34,8 +45,17 @@ class BankAccount:
         if amount <= self.balance and not self.is_dormant:
             self.balance -= amount
             print(f'Withdrew ${amount}. Remaining Balance: {self.balance}')
+            self.transactions.append(Transaction(amount, "Debit"))
         else:
             print("Account is dormant or amount is invalid")
+
+    def print_transaction_history(self):
+        print("***TRANSACTION HISTORY***")
+        if self.transactions is not None:
+            for transaction in self.transactions:
+                print(transaction)
+        else:
+            print("No transactions found.")
 
 
 class SavingsAccount(BankAccount):
@@ -44,9 +64,13 @@ class SavingsAccount(BankAccount):
     functionality for a savings account
     """
 
-    def __init__(self, title, type, balance, minium_balance):
-        super().__init__(title, type, balance)
+    def __init__(self, title, balance, minium_balance):
+        super().__init__(title, balance)
         self.minimum_balance = minium_balance
+        self.type = "Savings"
+
+    def __str__(self):
+        return f"Account Number: {self.account_number}\nAccount Type: {self.type}\nAccount Title: {self.title}\nBalance: ${self.balance}"
 
     def withdraw(self, amount):
         if self.balance - amount < self.minimum_balance:
@@ -68,14 +92,17 @@ class SavingsAccount(BankAccount):
 # print(account2)
 # account2.deposit(50)
 
-account3 = SavingsAccount("Michelle", "Savings", 50, 100)
-print(account3)
+account3 = SavingsAccount("Michelle", 150, 50)
 account3.deposit(100)
-account3.withdraw(100)
-print(account3)
+account3.deposit(150)
+account3.deposit(50)
+account3.withdraw(230)
+account3.withdraw(30)
+account3.print_transaction_history()
+# print(account3)
 
-account4 = SavingsAccount("Karma", "Savings", 300, 200)
-print(account4)
-account4.make_dormant()
-account4.withdraw(50)
-account4.make_dormant()
+# account4 = SavingsAccount("Karma", "Savings", 300, 200)
+# print(account4)
+# account4.make_dormant()
+# account4.withdraw(50)
+# account4.make_dormant()
