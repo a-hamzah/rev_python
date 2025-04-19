@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry} % Set margins to 1 inch
+\begin{document}
+
+\title{Differential Drive Mobile Robot Simulation and Dead Reckoning}
+\author{Ameer Hamzah and Faizan Aziz}
+\date{May 24, 2024}
+\maketitle
+
+\begin{abstract}
+    The aim of this lab is to understand the fundamental method of dead-reckoning which is used for the mobile robot localization. This approach is very common because the robot uses only its internal sensors to localize itself. The implementation was done using the provided simulation and the issues and results are given in the later part of this document.
+\end{abstract}
+
+\section{Introduction}
+Briefly describe what was done in the Pre-Lab, the Lab session, and the Post-Lab. Then describe the organization of the report.
+
+This report is organized as follows: Section 2 describes how to simulate the robot by implementing the \texttt{DifferentialDriveSimulatedRobot} class inheriting from the \texttt{SimulatedRobot} base class. This section also explains how to use the class to simulate the trajectories requested in the lab. Section 3 details the dead reckoning localization method of a differential drive mobile robot. The technique is implemented in the \texttt{DR\_3DOFDifferentialDrive} class as a child class of the \texttt{Localization} class providing an implementation for their virtual methods. Finally, section 4 is devoted to the description of the problems found during the lab.
+
+\section{Simulation}
+First, we did the simulation part. That was very difficult. There were certain symbols which we did not know how to use. But we did it because we like simulation.
+Here I will specify the certain functions that we used in the simulation after understanding them. In the simulation, the first class was \textit{SimulatedRobot}. In this class, the a general robot simulation is defined irrespective of the type of the robot (aerial robot, mobile robot or a legged robot). This class is then extended using another child class \textit{DifferentialDriveSimulatedRobot}. Some of the methods and attributes of \textit{SimulatedRobot} are over-ridden.
+
+\section{Dead-Reckoning}
+Dead-reckoning is all about using the encoder values to find the pose of the robot. This technique is widely used in robotics but prone to errors.
+
+\section{Issues}
+Describe here any potential problems you found and how you solved it.
+
+\section{Conclusions}
+
+
+\begin{thebibliography}{3}
+    \bibitem{author1}
+    Pere Ridao. ``\textit{Probabilistic Robot Localization and Mapping Python Library Documentation.}''
+    
+    \bibitem{author2}
+    Ameer Hamzah. ``\textit{Center of Robotics Excellence, 2nd Edition}''. Journal. 1994.
+
+
+\end{thebibliography}
+
+\end{document}
